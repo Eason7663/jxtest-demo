@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jiuxin Test</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">-->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <style>
+    .lableabb {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    </style>
+
+</head>
+<body>
+<form role="form" class="form-inline" method="post" action="/api/file/upload" enctype="multipart/form-data">
+    <div class="form-row">
+    <label class="lableabb">选择文件</label>
+        <input type="file" name="file" class="form-control">
+        <p class="help-block">选择你需要的文件</p>
+        <!--<button type="button" class="btn-primary" value="提交">上传</button>-->
+        <!--<input class="btn-primary" type="submit" value="提交">-->
+    </div>
+    <div class="form-row">
+        <div class="input-group mb-3 input-group-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text">请输入配置主题</span>
+            </div>
+            <input type="text" class="form-control" name="topic">
+        </div>
+    </div>
+    <div class="form-row">
+        <button class="btn btn-primary" type="submit" value="提交">提交</button>
+    </div>
+</form>
+</body>
+</html>
