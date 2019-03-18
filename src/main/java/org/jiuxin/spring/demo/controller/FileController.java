@@ -49,11 +49,14 @@ public class FileController {
 //            System.out.println(str.split("\r\n").length);
             String[] message = str.split("\r\n");
             for (int i = 0; i < message.length; i++) {
+                Thread.sleep(2000);
                 mqttClientService.publish(topic,message[i]);
             }
             return "配置完成下发";
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return "上传失败";

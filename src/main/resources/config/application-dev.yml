@@ -10,6 +10,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+#  resources:
+#    static-locations: ["/templates/","/static/"]
 
 logging:
   level: info
