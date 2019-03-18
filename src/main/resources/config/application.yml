@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: local
 #多个active 用逗号隔开
 book:
   name: 高性能linux服务器构建
