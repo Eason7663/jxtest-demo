@@ -3,22 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>书单详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
-<body>
-    <div>
+<body th:object="${book}" style="margin: 100px; max-width: 70px">
+<div class="container">
+    <h2 class="page-header" style="margin-top: 50px">详情</h2>
+    <div class="well">
         <p>
-            <strong>书名：</strong><span th:text="${book.name}">我们仨</span>
+            <strong>书名：</strong><span th:text="*{name}">我们仨</span>
         </p>
         <p>
-            <strong>作者：</strong><span th:text="${book.author}">杨绛</span>
+            <strong>作者：</strong><span th:text="*{author}">杨绛</span>
         </p>
         <p>
-            <strong>说明：</strong><span th:text="${book.description}">这是一本不错的小说</span>
+            <strong>说明：</strong><span th:text="*{description}">这是一本不错的小说</span>
         </p>
-        <p>
-            <strong>状态：</strong><span th:text="${book.name}">0</span>
+        <p th:switch="*{status}">
+            <strong>状态：</strong>
+            <span th:case="0">想读</span>
+            <span th:case="1">在读</span>
+            <span th:case="2">已读</span>
         </p>
-
     </div>
+    <div class="alert alert-success" th:unless="*{status == 0}">
+        <strong>不错</strong>，你已经开始行动了
+    </div>
+    <div class="alert alert-warning" th:if="*{status == 0}">
+        <strong>emm</strong>，你还没开始行动
+    </div>
+    <a href="javascript:history.go(-1)" class="btn btn-primary">返回</a>
+</div>
+<script src="/static/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 </body>
 </html>

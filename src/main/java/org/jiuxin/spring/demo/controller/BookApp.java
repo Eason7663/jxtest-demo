@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @ClassName BookApp
@@ -52,7 +51,7 @@ public class BookApp {
      * @return
      */
     @GetMapping("/books/{id}")
-    public Optional<Book> getOne(@PathVariable Long id){
+    public Book getOne(@PathVariable Long id){
         return bookService.findOne(id);
     }
 }
