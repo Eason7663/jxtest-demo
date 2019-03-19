@@ -28,7 +28,7 @@ public class MqttClientService {
         String broker = "tcp://emqceshi.jiuxiniot.com:1883";
         String userName = "admin";
         String password = "public";
-        String clientId = "pubClient";
+        String clientId = "pubClient"+Math.random();
         //内存存储
         MemoryPersistence persistence = new MemoryPersistence();
         try {

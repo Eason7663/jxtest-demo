@@ -1,6 +1,10 @@
 spring:
   profiles:
-    active: local
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
 #多个active 用逗号隔开
 book:
   name: 高性能linux服务器构建
