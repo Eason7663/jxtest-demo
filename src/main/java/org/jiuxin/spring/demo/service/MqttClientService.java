@@ -1,9 +1,6 @@
 package org.jiuxin.spring.demo.service;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.jiuxin.spring.demo.domain.MqttServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +18,51 @@ public class MqttClientService {
     @Autowired
     private MqttServer mqttServer;
 
+    public MqttClient createClient() throws MqttException {
+        String broker = mqttServer.getHostip();
+        String userName = mqttServer.getUsername();
+        String password = mqttServer.getPassword();
+        String clientId = "subClient" + Math.random();
+
+        //内存存储
+        MemoryPersistence persistence = new MemoryPersistence();
+
+        MqttClient mqttClient = new MqttClient(broker,clientId,persistence);
+        //创建连接参数
+        MqttConnectOptions connOptions = new MqttConnectOptions();
+        //在重新启动和重新连接时，记住状态
+        connOptions.setCleanSession(false);
+        //设置连接用户名
+        connOptions.setUserName(userName);
+        connOptions.setPassword(password.toCharArray());
+        //建立连接
+        mqttClient.connect(connOptions);
+        return mqttClient;
+    }
+
+    public void subscribe(){
+        try {
+            MqttClient mqttClient = createClient();
+            IMqttMessageListener messageListener = new IMqttMessageListener() {
+                @Override
+                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    System.out.println(message.toString());
+                }
+            };
+            mqttClient.subscribe("testtopic",messageListener);
+
+
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void publish(String topic, String content){
-//        String topic = "mqtt/test";
-//        String content = "hello 哈哈";
         int qos = 1;
         String broker = "tcp://emqceshi.jiuxiniot.com:1883";
         String userName = "admin";
         String password = "public";
-        String clientId = "pubClient"+Math.random();
+        String clientId = "pubClient" + Math.random();
         //内存存储
         MemoryPersistence persistence = new MemoryPersistence();
         try {

@@ -1,5 +1,6 @@
 package org.jiuxin.spring.demo.domain;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @Version 1.0
  **/
 @Component
+@Data
 public class MqttServer {
     @Value("${mqtt.hostip}")
     private String hostip;
@@ -20,28 +22,4 @@ public class MqttServer {
 
     @Value("${mqtt.password}")
     private String password;
-
-    public String getHostip() {
-        return hostip;
-    }
-
-    public void setHostip(String hostip) {
-        this.hostip = hostip;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

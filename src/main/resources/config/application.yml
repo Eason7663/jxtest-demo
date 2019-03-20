@@ -26,6 +26,6 @@ sshClient:
   password: jiuxin123
 
 mqtt:
-  hostip: 119.3.46.253
+  hostip: tcp://119.3.46.253:1883
   username: admin
   password: public
