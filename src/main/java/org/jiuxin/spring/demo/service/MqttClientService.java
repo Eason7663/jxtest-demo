@@ -1,5 +1,6 @@
 package org.jiuxin.spring.demo.service;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.jiuxin.spring.demo.domain.MqttServer;
@@ -17,6 +18,17 @@ import org.springframework.stereotype.Service;
 public class MqttClientService {
     @Autowired
     private MqttServer mqttServer;
+
+    private MqttClient mqttClient;
+
+    public MqttClientService() {
+        try {
+            this.mqttClient = this.createClient();
+        } catch (MqttException e) {
+
+            e.printStackTrace();
+        }
+    }
 
     public MqttClient createClient() throws MqttException {
         String broker = mqttServer.getHostip();
@@ -42,20 +54,21 @@ public class MqttClientService {
 
     public void subscribe(){
         try {
-            MqttClient mqttClient = createClient();
+
             IMqttMessageListener messageListener = new IMqttMessageListener() {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    System.out.println(message.toString());
+
                 }
             };
-            mqttClient.subscribe("testtopic",messageListener);
+            this.mqttClient.subscribe("testtopic",messageListener);
 
 
         } catch (MqttException e) {
             e.printStackTrace();
         }
     }
+
 
     public void publish(String topic, String content){
         int qos = 1;
